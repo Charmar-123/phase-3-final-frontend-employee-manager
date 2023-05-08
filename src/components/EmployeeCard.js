@@ -18,25 +18,22 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData }) 
     };
 
     const handleOnSubmit = (e) => {
-        setShowForm(false)
         e.preventDefault();
-        const addedTask = {description: formData, employee_id: id};
-        console.log(addedTask);
+        setShowForm(false)
+        const addedTask = {description: formData,complete: false, employee_id: id};
         
-        // fetch("http://localhost:9292/employees", {
-        //     method: "POST",
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({
-        //       formData
-        //     }),
-        //   })
-        //     .then((r) => r.json())
-        //     .then((data) => {
-                
-        //         handlePostData(data)
-        //     });
+        fetch("http://localhost:9292/tasks", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(addedTask),
+          })
+            .then(res => res.json())
+            .then(data => {
+                handlePostData(data)
+                setFormData("")
+            })
     }
 
  
