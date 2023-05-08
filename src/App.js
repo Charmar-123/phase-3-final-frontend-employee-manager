@@ -16,7 +16,7 @@ const App = () => {
   return (
     <>
       <NavigationBar />
-      <Employees/>
+      <Employees employeeData={employeeData}/>
     </>
   
   );
