@@ -5,22 +5,35 @@ import { useState, useEffect } from "react";
 
 const App = () => {
 
-  const [employeeData, setEmployeeData] = useState([])
+  const [employeesData, setEmployeesData] = useState([])
 
   useEffect(() => {
     fetch('http://localhost:9292/employees')
     .then(res => res.json())
-    .then(setEmployeeData)
+    .then(setEmployeesData)
   }, [])
+  console.log(employeesData);
 
-  const handlePostData = () => {
-    
+  const handlePostData = (task) => {
+
+    const updatedEmployee = {...employeesData[task.employee_id - 1], tasks: [...employeesData[task.employee_id].tasks, task]}
+    console.log(updatedEmployee);
+    const updatedEmployeesData = employeesData.map((employee) => {
+      if (employee.id === task.employee_id){
+        return updatedEmployee
+      }
+      else {
+        return employee
+      }
+    })
+
+    setEmployeesData(updatedEmployeesData)
   }
 
   return (
     <>
       <NavigationBar />
-      <Employees employeeData={employeeData} handlePostData={handlePostData}/>
+      <Employees employeesData={employeesData} handlePostData={handlePostData}/>
     </>
   
   );

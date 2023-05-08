@@ -3,10 +3,9 @@ import EmployeeCard from './EmployeeCard'
 import { Row } from 'react-bootstrap';
 
 
-const Employees = ({ employeeData, handlePostData }) => {
-    console.log(employeeData);
+const Employees = ({ employeesData, handlePostData }) => {
 
-    const employees = employeeData.map(({ id, name, image_url, position, tasks }) => {
+    const employees = employeesData.map(({ id, name, image_url, position, tasks }) => {
         return (
             <EmployeeCard
                 key={id}
@@ -19,7 +18,7 @@ const Employees = ({ employeeData, handlePostData }) => {
             />
         )
     })
-
+// console.log(employees);
     return (
         <Row xs={1} md={2} className="g-4 justify-content-center" >
             {employees}
