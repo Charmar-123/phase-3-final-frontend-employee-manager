@@ -13,10 +13,14 @@ const App = () => {
     .then(setEmployeeData)
   }, [])
 
+  const handlePostData = () => {
+
+  }
+
   return (
     <>
       <NavigationBar />
-      <Employees employeeData={employeeData}/>
+      <Employees employeeData={employeeData} handlePostData={handlePostData}/>
     </>
   
   );

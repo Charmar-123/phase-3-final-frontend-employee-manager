@@ -4,18 +4,42 @@ import { Button, Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 
-const EmployeeCard = ({ id, name, image_url, position, tasks }) => {
+const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData }) => {
+
+    const [formData, setFormData] = useState("")
+    const [showForm, setShowForm] = useState(false);
 
     const handleOnClick = () => {
         setShowForm(true)
     }
 
+    const handleChange= (e) => {
+        setFormData(e.target.value)
+    };
+
     const handleOnSubmit = (e) => {
-        e.preventDefault();
         setShowForm(false)
+        e.preventDefault();
+        const addedTask = {description: formData, employee_id: id};
+        console.log(addedTask);
+        
+        // fetch("http://localhost:9292/employees", {
+        //     method: "POST",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //       formData
+        //     }),
+        //   })
+        //     .then((r) => r.json())
+        //     .then((data) => {
+                
+        //         handlePostData(data)
+        //     });
     }
 
-    const [showForm, setShowForm] = useState(false);
+ 
 
 
     const pendingTasks = tasks.filter(({ complete }) => complete === false);
@@ -34,7 +58,7 @@ const EmployeeCard = ({ id, name, image_url, position, tasks }) => {
             <ListGroup variant="flush">
                 {pendingTasks.map((pendingTask) => {
                     return (
-                        <Row>
+                        <Row key={pendingTask.id}>
                             <ListGroup.Item>{pendingTask.description}</ListGroup.Item>
                             {/* <Button size='2rem'></Button> */}
                         </Row>
@@ -46,7 +70,7 @@ const EmployeeCard = ({ id, name, image_url, position, tasks }) => {
             <ListGroup variant="flush">
                 {CompletedTasks.map((CompletedTask) => {
                     return (
-                        <ListGroup.Item>{CompletedTask.description}</ListGroup.Item>
+                        <ListGroup.Item key={CompletedTask.id}>{CompletedTask.description}</ListGroup.Item>
                     )
                 })}
             </ListGroup>
@@ -55,10 +79,11 @@ const EmployeeCard = ({ id, name, image_url, position, tasks }) => {
 
                     <Form onSubmit={handleOnSubmit}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Control type="email" placeholder="Enter email" />
+                            <Form.Control value={formData} onChange={handleChange} placeholder="Enter email" />
                         </Form.Group>
+                        <Button type='submit'>Submit</Button>
                     </Form>
-                    <Button type='submit'>Submit</Button></Col>
+                    </Col>
 
                     : <Button onClick={handleOnClick}>Create Task</Button>}
 

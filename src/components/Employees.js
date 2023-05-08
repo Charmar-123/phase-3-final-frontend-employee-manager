@@ -3,17 +3,19 @@ import EmployeeCard from './EmployeeCard'
 import { Row } from 'react-bootstrap';
 
 
-const Employees = ({ employeeData }) => {
+const Employees = ({ employeeData, handlePostData }) => {
     console.log(employeeData);
 
     const employees = employeeData.map(({ id, name, image_url, position, tasks }) => {
         return (
             <EmployeeCard
                 key={id}
+                id={id}
                 name={name}
                 image_url={image_url}
                 position={position}
                 tasks={tasks}
+                handlePostData={handlePostData}
             />
         )
     })
