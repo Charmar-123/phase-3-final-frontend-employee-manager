@@ -1,10 +1,19 @@
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Button, Row } from 'react-bootstrap';
+import { Button, Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 
 const EmployeeCard = ({ id, name, image_url, position, tasks }) => {
+
+    const handleOnClick = () => {
+        setShowForm(true)
+    }
+
+    const handleOnSubmit = (e) => {
+        e.preventDefault();
+        setShowForm(false)
+    }
 
     const [showForm, setShowForm] = useState(false);
 
@@ -42,10 +51,17 @@ const EmployeeCard = ({ id, name, image_url, position, tasks }) => {
                 })}
             </ListGroup>
             <Card.Body>
-                {showForm ? <Button>Submit</Button> : <Button>Create Task</Button>}
-                <Form>
+                {showForm ? <Col>
 
-                </Form>
+                    <Form onSubmit={handleOnSubmit}>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Control type="email" placeholder="Enter email" />
+                        </Form.Group>
+                    </Form>
+                    <Button type='submit'>Submit</Button></Col>
+
+                    : <Button onClick={handleOnClick}>Create Task</Button>}
+
             </Card.Body>
         </Card>
     );
