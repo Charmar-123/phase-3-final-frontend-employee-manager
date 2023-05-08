@@ -20,7 +20,6 @@ const Employees = ({ employeeData }) => {
 
     return (
         <Row xs={1} md={2} className="g-4 justify-content-center" >
-
             {employees}
         </Row>
 

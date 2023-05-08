@@ -1,12 +1,16 @@
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { Button, Row } from 'react-bootstrap';
+import { useState } from 'react';
+import { Form } from 'react-bootstrap';
 
 const EmployeeCard = ({ id, name, image_url, position, tasks }) => {
 
-   
+    const [showForm, setShowForm] = useState(false);
 
-    const pendingTasks = tasks.filter(({complete}) => complete === false);
-    const CompletedTasks = tasks.filter(({complete}) => complete === true);
+
+    const pendingTasks = tasks.filter(({ complete }) => complete === false);
+    const CompletedTasks = tasks.filter(({ complete }) => complete === true);
 
     return (
         <Card style={{ width: '18rem' }}>
@@ -21,21 +25,27 @@ const EmployeeCard = ({ id, name, image_url, position, tasks }) => {
             <ListGroup variant="flush">
                 {pendingTasks.map((pendingTask) => {
                     return (
-                        <ListGroup.Item>{pendingTask.description}</ListGroup.Item>
+                        <Row>
+                            <ListGroup.Item>{pendingTask.description}</ListGroup.Item>
+                            {/* <Button size='2rem'></Button> */}
+                        </Row>
+
                     )
                 })}
             </ListGroup>
             <Card.Header>Completed Tasks</Card.Header>
             <ListGroup variant="flush">
-            {CompletedTasks.map((CompletedTask) => {
+                {CompletedTasks.map((CompletedTask) => {
                     return (
                         <ListGroup.Item>{CompletedTask.description}</ListGroup.Item>
                     )
                 })}
             </ListGroup>
             <Card.Body>
-                <Card.Link href="#">Card Link</Card.Link>
-                <Card.Link href="#">Another Link</Card.Link>
+                {showForm ? <Button>Submit</Button> : <Button>Create Task</Button>}
+                <Form>
+
+                </Form>
             </Card.Body>
         </Card>
     );
