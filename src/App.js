@@ -12,12 +12,12 @@ const App = () => {
     .then(res => res.json())
     .then(setEmployeesData)
   }, [])
-  console.log(employeesData);
+  // console.log(employeesData);
 
   const handlePostData = (task) => {
-    // console.log(employeesData[task.employee_id - 1]);
-    const updatedEmployee = {...employeesData[task.employee_id - 1], tasks: [...employeesData[task.employee_id-1].tasks, task]}
-    console.log(updatedEmployee);
+
+    const employeeIndex = employeesData.findIndex(obj => obj.id === task.employee_id)
+    const updatedEmployee = {...employeesData[employeeIndex], tasks: [...employeesData[employeeIndex].tasks, task]}
     const updatedEmployeesData = employeesData.map((employee) => {
       if (employee.id === task.employee_id){
         return updatedEmployee
@@ -30,9 +30,26 @@ const App = () => {
     setEmployeesData(updatedEmployeesData)
   }
 
-  const handleUpdateData = () => {
 
-  }
+  const handleUpdateData = (task) => {
+    const employeeIndex = employeesData.findIndex(obj => obj.id === task.employee_id)
+    const updatedEmployee = {...employeesData[employeeIndex]};
+    const taskId = task.id;
+    const taskIndex = updatedEmployee.tasks.findIndex(obj => obj.id === taskId)
+    updatedEmployee.tasks[taskIndex] = task
+    
+    const updatedEmployeesData = employeesData.map((employee) => {
+      if (employee.id === task.employee_id){
+        return updatedEmployee
+      }
+      else {
+        return employee
+      }
+    })
+
+    setEmployeesData(updatedEmployeesData)
+
+    }
 
   return (
     <>

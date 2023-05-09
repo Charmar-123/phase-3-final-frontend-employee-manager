@@ -9,8 +9,9 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, ha
     const [formData, setFormData] = useState("")
     const [showForm, setShowForm] = useState(false);
 
-    const handleTaskComplete = () => {
-        fetch(`http://localhost:9292/tasks/${id}`, {
+    const handleTaskComplete = (taskId) => {
+        // console.log(taskId);
+        fetch(`http://localhost:9292/tasks/${taskId}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -18,7 +19,9 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, ha
             body: JSON.stringify({complete: true}),
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            handleUpdateData(data)
+        })
 
     }
 
@@ -70,7 +73,7 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, ha
                     return (
                         <Row key={pendingTask.id}>
                             <ListGroup.Item>{pendingTask.description}</ListGroup.Item>
-                            <Button onClick={handleTaskComplete}>Finished</Button>
+                            <Button onClick={() => handleTaskComplete(pendingTask.id)}>Finished</Button>
                         </Row>
 
                     )
