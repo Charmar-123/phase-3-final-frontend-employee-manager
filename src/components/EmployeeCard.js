@@ -4,10 +4,23 @@ import { Button, Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 
-const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData }) => {
+const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, handleUpdateData }) => {
 
     const [formData, setFormData] = useState("")
     const [showForm, setShowForm] = useState(false);
+
+    const handleTaskComplete = () => {
+        fetch(`http://localhost:9292/tasks/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({complete: true}),
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+
+    }
 
     const handleOnClick = () => {
         setShowForm(true)
@@ -57,7 +70,7 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData }) 
                     return (
                         <Row key={pendingTask.id}>
                             <ListGroup.Item>{pendingTask.description}</ListGroup.Item>
-                            {/* <Button size='2rem'></Button> */}
+                            <Button onClick={handleTaskComplete}>Finished</Button>
                         </Row>
 
                     )

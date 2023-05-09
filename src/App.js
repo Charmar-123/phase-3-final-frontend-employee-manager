@@ -15,7 +15,7 @@ const App = () => {
   console.log(employeesData);
 
   const handlePostData = (task) => {
-    console.log(employeesData[task.employee_id - 1]);
+    // console.log(employeesData[task.employee_id - 1]);
     const updatedEmployee = {...employeesData[task.employee_id - 1], tasks: [...employeesData[task.employee_id-1].tasks, task]}
     console.log(updatedEmployee);
     const updatedEmployeesData = employeesData.map((employee) => {
@@ -30,10 +30,14 @@ const App = () => {
     setEmployeesData(updatedEmployeesData)
   }
 
+  const handleUpdateData = () => {
+
+  }
+
   return (
     <>
       <NavigationBar />
-      <Employees employeesData={employeesData} handlePostData={handlePostData}/>
+      <Employees employeesData={employeesData} handlePostData={handlePostData} handleUpdateData={handleUpdateData}/>
     </>
   
   );
