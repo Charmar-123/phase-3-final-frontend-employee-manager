@@ -53,12 +53,13 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, ha
     }
 
 
-    const handleTaskDelete = (taskId) => {
+    const handleTaskDelete = (task) => {
+        console.log(task.id);
 
-            fetch(`http://localhost:9292/tasks/${taskId}`, {
+            fetch(`http://localhost:9292/tasks/${task.id}`, {
                 method: 'DELETE',
             })
-            .then(handleDeleteData(taskId))
+            .then(handleDeleteData(task))
             
   
     }
@@ -83,7 +84,7 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, ha
                         <Row key={pendingTask.id}>
                             <ListGroup.Item>{pendingTask.description}</ListGroup.Item>
                             <Button onClick={() => handleTaskComplete(pendingTask.id)}>Finished</Button>
-                            <Button onClick={() => handleTaskDelete(pendingTask.id)}>Delete</Button>
+                            <Button onClick={() => handleTaskDelete(pendingTask)}>Delete</Button>
                         </Row>
 
                     )
@@ -95,7 +96,7 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, ha
                     return (
                         <Row key={CompletedTask.id}>
                             <ListGroup.Item key={CompletedTask.id}>{CompletedTask.description}</ListGroup.Item>
-                            <Button onClick={() => handleTaskDelete(CompletedTask.id)}>Delete</Button>
+                            <Button onClick={() => handleTaskDelete(CompletedTask)}>Delete</Button>
                         </Row>
 
                     )

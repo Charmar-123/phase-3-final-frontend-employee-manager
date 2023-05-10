@@ -1,5 +1,5 @@
 import NavigationBar from "./components/NavigationBar";
-import Employees from "./components/Employees"; 
+import Employees from "./components/Employees";
 
 import { useState, useEffect } from "react";
 
@@ -9,17 +9,17 @@ const App = () => {
 
   useEffect(() => {
     fetch('http://localhost:9292/employees')
-    .then(res => res.json())
-    .then(setEmployeesData)
+      .then(res => res.json())
+      .then(setEmployeesData)
   }, [])
   // console.log(employeesData);
 
   const handlePostData = (task) => {
 
     const employeeIndex = employeesData.findIndex(obj => obj.id === task.employee_id)
-    const updatedEmployee = {...employeesData[employeeIndex], tasks: [...employeesData[employeeIndex].tasks, task]}
+    const updatedEmployee = { ...employeesData[employeeIndex], tasks: [...employeesData[employeeIndex].tasks, task] }
     const updatedEmployeesData = employeesData.map((employee) => {
-      if (employee.id === task.employee_id){
+      if (employee.id === task.employee_id) {
         return updatedEmployee
       }
       else {
@@ -33,13 +33,13 @@ const App = () => {
 
   const handleUpdateData = (task) => {
     const employeeIndex = employeesData.findIndex(obj => obj.id === task.employee_id)
-    const updatedEmployee = {...employeesData[employeeIndex]};
+    const updatedEmployee = employeesData[employeeIndex];
     const taskId = task.id;
     const taskIndex = updatedEmployee.tasks.findIndex(obj => obj.id === taskId)
     updatedEmployee.tasks[taskIndex] = task
-    
+
     const updatedEmployeesData = employeesData.map((employee) => {
-      if (employee.id === task.employee_id){
+      if (employee.id === task.employee_id) {
         return updatedEmployee
       }
       else {
@@ -49,18 +49,35 @@ const App = () => {
 
     setEmployeesData(updatedEmployeesData)
 
-    }
+  }
 
-    const handleDeleteData = (taskId) => {
-      console.log(taskId); 
-    }
+  const handleDeleteData = (task) => {
+    console.log(task);
+    const employeeIndex = employeesData.findIndex(obj => obj.id === task.employee_id)
+    const updatedEmployee = employeesData[employeeIndex];
+    // const taskId = task.id;
+    // const taskIndex = updatedEmployee.tasks.findIndex(obj => obj.id === taskId)
+    // delete updatedEmployee.tasks[taskIndex]
+    updatedEmployee.tasks = updatedEmployee.tasks.filter(t => t.id !== task.id)
+
+    const updatedEmployeesData = employeesData.map((employee) => {
+      if (employee.id === task.employee_id) {
+        return updatedEmployee
+      }
+      else {
+        return employee
+      }
+    })
+
+    setEmployeesData(updatedEmployeesData)
+  }
 
   return (
     <>
       <NavigationBar />
-      <Employees employeesData={employeesData} handlePostData={handlePostData} handleUpdateData={handleUpdateData} handleDeleteData={handleDeleteData}/>
+      <Employees employeesData={employeesData} handlePostData={handlePostData} handleUpdateData={handleUpdateData} handleDeleteData={handleDeleteData} />
     </>
-  
+
   );
 }
 
