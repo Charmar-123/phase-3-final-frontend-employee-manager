@@ -3,7 +3,7 @@ import EmployeeCard from './EmployeeCard'
 import { Row } from 'react-bootstrap';
 
 
-const Employees = ({ employeesData, handlePostData, handleUpdateData }) => {
+const Employees = ({ employeesData, handlePostData, handleUpdateData, handleDeleteData }) => {
 
     const employees = employeesData.map(({ id, name, image_url, position, tasks }) => {
         return (
@@ -16,6 +16,7 @@ const Employees = ({ employeesData, handlePostData, handleUpdateData }) => {
                 tasks={tasks}
                 handlePostData={handlePostData}
                 handleUpdateData={handleUpdateData}
+                handleDeleteData={handleDeleteData}
             />
         )
     })

@@ -51,10 +51,14 @@ const App = () => {
 
     }
 
+    const handleDeleteData = (taskId) => {
+      console.log(taskId); 
+    }
+
   return (
     <>
       <NavigationBar />
-      <Employees employeesData={employeesData} handlePostData={handlePostData} handleUpdateData={handleUpdateData}/>
+      <Employees employeesData={employeesData} handlePostData={handlePostData} handleUpdateData={handleUpdateData} handleDeleteData={handleDeleteData}/>
     </>
   
   );

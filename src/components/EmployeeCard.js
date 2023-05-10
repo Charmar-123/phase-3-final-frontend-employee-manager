@@ -4,7 +4,7 @@ import { Button, Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 
-const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, handleUpdateData }) => {
+const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, handleUpdateData, handleDeleteData }) => {
 
     const [formData, setFormData] = useState("")
     const [showForm, setShowForm] = useState(false);
@@ -16,12 +16,12 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, ha
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({complete: true}),
+            body: JSON.stringify({ complete: true }),
         })
-        .then(res => res.json())
-        .then(data => {
-            handleUpdateData(data)
-        })
+            .then(res => res.json())
+            .then(data => {
+                handleUpdateData(data)
+            })
 
     }
 
@@ -29,22 +29,22 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, ha
         setShowForm(true)
     }
 
-    const handleChange= (e) => {
+    const handleChange = (e) => {
         setFormData(e.target.value)
     };
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
         setShowForm(false)
-        const addedTask = {description: formData,complete: false, employee_id: id};
-        
+        const addedTask = { description: formData, complete: false, employee_id: id };
+
         fetch("http://localhost:9292/tasks", {
             method: "POST",
             headers: {
-              "Content-Type": "application/json",
+                "Content-Type": "application/json",
             },
             body: JSON.stringify(addedTask),
-          })
+        })
             .then(res => res.json())
             .then(data => {
                 handlePostData(data)
@@ -52,7 +52,16 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, ha
             })
     }
 
- 
+
+    const handleTaskDelete = (taskId) => {
+
+            fetch(`http://localhost:9292/tasks/${taskId}`, {
+                method: 'DELETE',
+            })
+            .then(handleDeleteData(taskId))
+            
+  
+    }
 
 
     const pendingTasks = tasks.filter(({ complete }) => complete === false);
@@ -74,6 +83,7 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, ha
                         <Row key={pendingTask.id}>
                             <ListGroup.Item>{pendingTask.description}</ListGroup.Item>
                             <Button onClick={() => handleTaskComplete(pendingTask.id)}>Finished</Button>
+                            <Button onClick={() => handleTaskDelete(pendingTask.id)}>Delete</Button>
                         </Row>
 
                     )
@@ -83,7 +93,11 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, ha
             <ListGroup variant="flush">
                 {CompletedTasks.map((CompletedTask) => {
                     return (
-                        <ListGroup.Item key={CompletedTask.id}>{CompletedTask.description}</ListGroup.Item>
+                        <Row key={CompletedTask.id}>
+                            <ListGroup.Item key={CompletedTask.id}>{CompletedTask.description}</ListGroup.Item>
+                            <Button onClick={() => handleTaskDelete(CompletedTask.id)}>Delete</Button>
+                        </Row>
+
                     )
                 })}
             </ListGroup>
@@ -96,7 +110,7 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, ha
                         </Form.Group>
                         <Button type='submit'>Submit</Button>
                     </Form>
-                    </Col>
+                </Col>
 
                     : <Button onClick={handleOnClick}>Create Task</Button>}
 
