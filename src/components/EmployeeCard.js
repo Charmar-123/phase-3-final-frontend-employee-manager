@@ -4,7 +4,7 @@ import { Button, Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 
-const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, handleUpdateData, handleDeleteData }) => {
+const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, handleUpdateData, handleDeleteData, presetFormData }) => {
 
     const [formData, setFormData] = useState("")
     const [showForm, setShowForm] = useState(false);
@@ -25,8 +25,12 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, ha
 
     }
 
+    // const handleOnClick = () => {
+    //     setShowForm(true)
+    // }
+
     const handleOnClick = () => {
-        setShowForm(true)
+        presetFormData(id, name, image_url, position, tasks)
     }
 
     const handleChange = (e) => {
@@ -103,17 +107,20 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, ha
                 })}
             </ListGroup>
             <Card.Body>
-                {showForm ? <Col>
+                {/* {showForm ? <Col>
 
                     <Form onSubmit={handleOnSubmit}>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Control value={formData} onChange={handleChange} placeholder="Enter email" />
+                        <Form.Group className="mb-3">
+                            <Form.Control value={formData} onChange={handleChange} placeholder="Enter new Task" />
                         </Form.Group>
                         <Button type='submit'>Submit</Button>
                     </Form>
                 </Col>
 
-                    : <Button onClick={handleOnClick}>Create Task</Button>}
+                    : 
+                } */}
+                    <Button onClick={handleOnClick}>Create Task</Button>
+              
 
             </Card.Body>
         </Card>

@@ -1,11 +1,14 @@
 import NavigationBar from "./components/NavigationBar";
 import Employees from "./components/Employees";
+import CreateEmployee from "./components/CreateEmployee";
+import CreateNewTask from "./components/CreateNewTask";
 
 import { useState, useEffect } from "react";
 
 const App = () => {
 
   const [employeesData, setEmployeesData] = useState([])
+  const [newTaskEmployeeData, setNewTaskEmployeeData] = useState({tasks: []})
 
   useEffect(() => {
     fetch('http://localhost:9292/employees')
@@ -72,10 +75,17 @@ const App = () => {
     setEmployeesData(updatedEmployeesData)
   }
 
+  const presetFormData = (id, name, image_url, position, tasks) => {
+    setNewTaskEmployeeData({id: id, name: name,position: position, image_url: image_url, tasks})
+    console.log(newTaskEmployeeData);
+  }
+
   return (
     <>
       <NavigationBar />
-      <Employees employeesData={employeesData} handlePostData={handlePostData} handleUpdateData={handleUpdateData} handleDeleteData={handleDeleteData} />
+      {/* <CreateEmployee/> */}
+      <CreateNewTask newTaskEmployeeData={newTaskEmployeeData}/>
+      <Employees employeesData={employeesData} handlePostData={handlePostData} handleUpdateData={handleUpdateData} handleDeleteData={handleDeleteData} presetFormData={presetFormData}/>
     </>
 
   );
