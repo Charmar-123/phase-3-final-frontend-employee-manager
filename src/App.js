@@ -15,13 +15,15 @@ const App = () => {
       .then(res => res.json())
       .then(setEmployeesData)
   }, [])
-  // console.log(employeesData);
+
 
   const handlePostData = (newTasks) => {
+
     console.log(newTasks[0].employee_id);
 
+
     const employeeIndex = employeesData.findIndex(obj => obj.id === newTasks[0].employee_id)
-    console.log(employeeIndex);
+  
     const updatedEmployee = { ...employeesData[employeeIndex], tasks: [...employeesData[employeeIndex].tasks, ...newTasks] }
     const updatedEmployeesData = employeesData.map((employee) => {
       if (employee.id === newTasks[0].employee_id) {
@@ -90,8 +92,8 @@ const App = () => {
   return (
     <>
       <NavigationBar />
-      <CreateEmployee handlePostEmployeeData={handlePostEmployeeData}/>
-      {/* <CreateNewTask newTaskEmployeeData={newTaskEmployeeData} handlePostData={handlePostData}/> */}
+      {/* <CreateEmployee handlePostEmployeeData={handlePostEmployeeData}/> */}
+      <CreateNewTask newTaskEmployeeData={newTaskEmployeeData} handlePostData={handlePostData}/>
       <Employees employeesData={employeesData} handlePostData={handlePostData} handleUpdateData={handleUpdateData} handleDeleteData={handleDeleteData} presetFormData={presetFormData}/>
     </>
 
