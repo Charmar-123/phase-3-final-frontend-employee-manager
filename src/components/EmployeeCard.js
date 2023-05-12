@@ -4,7 +4,7 @@ import { Button, Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 
-const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, handleUpdateData, handleDeleteData, presetFormData }) => {
+const EmployeeCard = ({ id, name, image_url, position, tasks, handleUpdateData, handleDeleteData, presetFormData }) => {
 
     const [formData, setFormData] = useState("")
     const [showForm, setShowForm] = useState(false);
@@ -33,9 +33,9 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, ha
         presetFormData(id, name, image_url, position, tasks)
     }
 
-    const handleChange = (e) => {
-        setFormData(e.target.value)
-    };
+    // const handleChange = (e) => {
+    //     setFormData(e.target.value)
+    // };
 
     // const handleOnSubmit = (e) => {
     //     e.preventDefault();
@@ -60,12 +60,12 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, ha
     const handleTaskDelete = (task) => {
         console.log(task.id);
 
-            fetch(`http://localhost:9292/tasks/${task.id}`, {
-                method: 'DELETE',
-            })
+        fetch(`http://localhost:9292/tasks/${task.id}`, {
+            method: 'DELETE',
+        })
             .then(handleDeleteData(task))
-            
-  
+
+
     }
 
 
@@ -107,20 +107,9 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handlePostData, ha
                 })}
             </ListGroup>
             <Card.Body>
-                {/* {showForm ? <Col>
+                {/* Create link to take to create new tasks form */}
+                <Button onClick={handleOnClick}>Create Task</Button>
 
-                    <Form onSubmit={handleOnSubmit}>
-                        <Form.Group className="mb-3">
-                            <Form.Control value={formData} onChange={handleChange} placeholder="Enter new Task" />
-                        </Form.Group>
-                        <Button type='submit'>Submit</Button>
-                    </Form>
-                </Col>
-
-                    : 
-                } */}
-                    <Button onClick={handleOnClick}>Create Task</Button>
-              
 
             </Card.Body>
         </Card>

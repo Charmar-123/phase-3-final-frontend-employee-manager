@@ -17,18 +17,21 @@ const App = () => {
   }, [])
   // console.log(employeesData);
 
-  const handlePostData = (task) => {
+  const handlePostData = (newTasks) => {
+    console.log(newTasks[0].employee_id);
 
-    const employeeIndex = employeesData.findIndex(obj => obj.id === task.employee_id)
-    const updatedEmployee = { ...employeesData[employeeIndex], tasks: [...employeesData[employeeIndex].tasks, task] }
+    const employeeIndex = employeesData.findIndex(obj => obj.id === newTasks[0].employee_id)
+    console.log(employeeIndex);
+    const updatedEmployee = { ...employeesData[employeeIndex], tasks: [...employeesData[employeeIndex].tasks, ...newTasks] }
     const updatedEmployeesData = employeesData.map((employee) => {
-      if (employee.id === task.employee_id) {
+      if (employee.id === newTasks[0].employee_id) {
         return updatedEmployee
       }
       else {
         return employee
       }
     })
+    console.log(updatedEmployee)
 
     setEmployeesData(updatedEmployeesData)
   }
@@ -77,14 +80,14 @@ const App = () => {
 
   const presetFormData = (id, name, image_url, position, tasks) => {
     setNewTaskEmployeeData({id: id, name: name,position: position, image_url: image_url, tasks})
-    console.log(newTaskEmployeeData);
+    // console.log(newTaskEmployeeData);
   }
 
   return (
     <>
       <NavigationBar />
       {/* <CreateEmployee/> */}
-      <CreateNewTask newTaskEmployeeData={newTaskEmployeeData}/>
+      <CreateNewTask newTaskEmployeeData={newTaskEmployeeData} handlePostData={handlePostData}/>
       <Employees employeesData={employeesData} handlePostData={handlePostData} handleUpdateData={handleUpdateData} handleDeleteData={handleDeleteData} presetFormData={presetFormData}/>
     </>
 
