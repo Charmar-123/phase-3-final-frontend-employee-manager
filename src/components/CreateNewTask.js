@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { Card, ListGroup, Row, Form, Button } from 'react-bootstrap'
 
-const CreateNewTask = ({ newTaskEmployeeData, handlePostData }) => {
+const CreateNewTask = ({ newTaskEmployeeData, handlePostTaskData }) => {
     // console.log(newTaskEmployeeData);
 
 
@@ -15,7 +15,7 @@ const CreateNewTask = ({ newTaskEmployeeData, handlePostData }) => {
     const pendingTasks = tasks.filter(({ complete }) => complete === false);
     const CompletedTasks = tasks.filter(({ complete }) => complete === true);
 
-    const [newTasks, setNewTasks] = useState([...tasks, ""]);
+    const [newTasks, setNewTasks] = useState([""]);
 
     const handleAddTask = () => {
         setNewTasks([...newTasks, ""]);
@@ -41,7 +41,7 @@ const CreateNewTask = ({ newTaskEmployeeData, handlePostData }) => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                handlePostData(data)
+                handlePostTaskData(data)
             })
     }
     return (

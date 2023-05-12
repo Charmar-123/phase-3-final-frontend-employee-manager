@@ -17,7 +17,7 @@ const App = () => {
   }, [])
 
 
-  const handlePostData = (newTasks) => {
+  const handlePostTaskData = (newTasks) => {
 
     console.log(newTasks[0].employee_id);
 
@@ -93,8 +93,8 @@ const App = () => {
     <>
       <NavigationBar />
       {/* <CreateEmployee handlePostEmployeeData={handlePostEmployeeData}/> */}
-      <CreateNewTask newTaskEmployeeData={newTaskEmployeeData} handlePostData={handlePostData}/>
-      <Employees employeesData={employeesData} handlePostData={handlePostData} handleUpdateData={handleUpdateData} handleDeleteData={handleDeleteData} presetFormData={presetFormData}/>
+      <CreateNewTask newTaskEmployeeData={newTaskEmployeeData} handlePostTaskData={handlePostTaskData}/>
+      <Employees employeesData={employeesData} handleUpdateData={handleUpdateData} handleDeleteData={handleDeleteData} presetFormData={presetFormData}/>
     </>
 
   );
