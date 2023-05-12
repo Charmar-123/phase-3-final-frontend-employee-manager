@@ -6,12 +6,7 @@ const CreateNewTask = ({ newTaskEmployeeData, handlePostTaskData }) => {
     // console.log(newTaskEmployeeData);
 
 
-
-    const id = newTaskEmployeeData.id;
-    const position = newTaskEmployeeData.position;
-    const name = newTaskEmployeeData.name;
-    const image_url = newTaskEmployeeData.image_url;
-    const tasks = newTaskEmployeeData.tasks;
+    const { id, position, name, image_url,tasks} = newTaskEmployeeData
     const pendingTasks = tasks.filter(({ complete }) => complete === false);
     const CompletedTasks = tasks.filter(({ complete }) => complete === true);
 
@@ -28,7 +23,6 @@ const CreateNewTask = ({ newTaskEmployeeData, handlePostTaskData }) => {
     };
 
     const handleOnSubmit = (e) => {
-        console.log(newTasks);
         e.preventDefault();
 
         fetch(`http://localhost:9292/tasks`, {
@@ -42,6 +36,7 @@ const CreateNewTask = ({ newTaskEmployeeData, handlePostTaskData }) => {
             .then(data => {
                 console.log(data);
                 handlePostTaskData(data)
+                setNewTasks([""])
             })
     }
     return (
