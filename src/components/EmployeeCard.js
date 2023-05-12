@@ -1,16 +1,12 @@
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Button, Row, Col } from 'react-bootstrap';
-import { useState } from 'react';
-import { Form } from 'react-bootstrap';
+import { Button, Row} from 'react-bootstrap';
+
 
 const EmployeeCard = ({ id, name, image_url, position, tasks, handleUpdateData, handleDeleteData, presetFormData }) => {
 
-    const [formData, setFormData] = useState("")
-    const [showForm, setShowForm] = useState(false);
 
     const handleTaskComplete = (taskId) => {
-        // console.log(taskId);
         fetch(`http://localhost:9292/tasks/${taskId}`, {
             method: "PATCH",
             headers: {
@@ -25,36 +21,10 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handleUpdateData, 
 
     }
 
-    // const handleOnClick = () => {
-    //     setShowForm(true)
-    // }
 
     const handleOnClick = () => {
         presetFormData(id, name, image_url, position, tasks)
     }
-
-    // const handleChange = (e) => {
-    //     setFormData(e.target.value)
-    // };
-
-    // const handleOnSubmit = (e) => {
-    //     e.preventDefault();
-    //     setShowForm(false)
-    //     const addedTask = { description: formData, complete: false, employee_id: id };
-
-    //     fetch("http://localhost:9292/tasks", {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify(addedTask),
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             handlePostData(data)
-    //             setFormData("")
-    //         })
-    // }
 
 
     const handleTaskDelete = (task) => {

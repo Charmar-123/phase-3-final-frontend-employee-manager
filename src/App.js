@@ -82,12 +82,16 @@ const App = () => {
     setNewTaskEmployeeData({id: id, name: name,position: position, image_url: image_url, tasks})
     // console.log(newTaskEmployeeData);
   }
+  
+  const handlePostEmployeeData = (newEmployee) => {
+    setEmployeesData([...employeesData, newEmployee])
+  }
 
   return (
     <>
       <NavigationBar />
-      {/* <CreateEmployee/> */}
-      <CreateNewTask newTaskEmployeeData={newTaskEmployeeData} handlePostData={handlePostData}/>
+      <CreateEmployee handlePostEmployeeData={handlePostEmployeeData}/>
+      {/* <CreateNewTask newTaskEmployeeData={newTaskEmployeeData} handlePostData={handlePostData}/> */}
       <Employees employeesData={employeesData} handlePostData={handlePostData} handleUpdateData={handleUpdateData} handleDeleteData={handleDeleteData} presetFormData={presetFormData}/>
     </>
 
