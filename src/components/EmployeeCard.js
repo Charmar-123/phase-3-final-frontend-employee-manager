@@ -1,6 +1,6 @@
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Button, Row} from 'react-bootstrap';
+import { Button, Row, Col, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 
@@ -57,9 +57,21 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handleUpdateData, 
                 {pendingTasks.map((pendingTask) => {
                     return (
                         <Row key={pendingTask.id}>
-                            <ListGroup.Item>{pendingTask.description}</ListGroup.Item>
-                            <Button onClick={() => handleTaskComplete(pendingTask.id)}>Finished</Button>
-                            <Button onClick={() => handleTaskDelete(pendingTask)}>Delete</Button>
+                            <ListGroup.Item >
+                                <Col>
+                                    <Col>
+                                        <p>
+                                            {pendingTask.description}
+                                        </p>
+                                    </Col>
+                                    <Col>
+                                        <Button variant='success' className="ml-auto" style={{ width: '70px', fontSize: '10px', marginRight: '5px' }} onClick={() => handleTaskComplete(pendingTask.id)}>Finished</Button>
+                                        <Button variant='danger' className="ml-auto" style={{ width: '70px', fontSize: '10px' }} onClick={() => handleTaskDelete(pendingTask)}>Delete</Button>
+                                    </Col>
+                                </Col>
+
+                            </ListGroup.Item>
+
                         </Row>
 
                     )
