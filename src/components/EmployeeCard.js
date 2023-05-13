@@ -1,6 +1,7 @@
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Button, Row} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 
 const EmployeeCard = ({ id, name, image_url, position, tasks, handleUpdateData, handleDeleteData, presetFormData }) => {
@@ -78,7 +79,7 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handleUpdateData, 
             </ListGroup>
             <Card.Body>
                 {/* Create link to take to create new tasks form */}
-                <Button onClick={handleOnClick}>Create Task</Button>
+                <Button as={Link} to={`/employees/${id}/new_tasks`} onClick={handleOnClick}>Create Task</Button>
 
 
             </Card.Body>

@@ -2,9 +2,12 @@ import React from 'react'
 import { useState } from 'react';
 import { Card, ListGroup, Row, Form, Button } from 'react-bootstrap'
 
+import { useNavigate } from 'react-router-dom'
+
 const CreateNewTask = ({ newTaskEmployeeData, handlePostTaskData }) => {
     // console.log(newTaskEmployeeData);
 
+    const navigate = useNavigate();
 
     const { id, position, name, image_url,tasks} = newTaskEmployeeData
     const pendingTasks = tasks.filter(({ complete }) => complete === false);
@@ -37,6 +40,7 @@ const CreateNewTask = ({ newTaskEmployeeData, handlePostTaskData }) => {
                 console.log(data);
                 handlePostTaskData(data)
                 setNewTasks([""])
+                navigate("/employees")
             })
     }
     return (

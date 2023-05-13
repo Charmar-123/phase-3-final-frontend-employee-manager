@@ -2,8 +2,12 @@ import React from 'react'
 import { useState } from 'react';
 import { Form, Button } from "react-bootstrap";
 
+import { useNavigate } from 'react-router-dom'
+
 
 const CreateEmployee = ({handlePostEmployeeData}) => {
+
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [position, setPosition] = useState("");
@@ -23,6 +27,7 @@ const CreateEmployee = ({handlePostEmployeeData}) => {
             .then(data => {
               console.log(data);
               handlePostEmployeeData(data)
+              navigate('/employees')
             })
   };
 
