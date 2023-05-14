@@ -3,6 +3,7 @@ import NavigationBar from "./components/NavigationBar";
 import Employees from "./components/Employees";
 import CreateEmployee from "./components/CreateEmployee";
 import CreateNewTask from "./components/CreateNewTask";
+import EditEmployeeTask from "./components/EditEmployeeTask";
 
 import { useState, useEffect } from "react";
 
@@ -104,6 +105,7 @@ const App = () => {
         <Route exact path='/employees' element={<Employees employeesData={employeesData} handleUpdateData={handleUpdateData} handleDeleteData={handleDeleteData} presetFormData={presetFormData} />}/>
         <Route path='employees/new' element={<CreateEmployee handlePostEmployeeData={handlePostEmployeeData} />}/>
         <Route path='employees/:id/new_tasks' element={<CreateNewTask newTaskEmployeeData={newTaskEmployeeData} handlePostTaskData={handlePostTaskData} />}/>
+        <Route path='/employees/:id/edit_task/:task_id' element={<EditEmployeeTask newTaskEmployeeData={newTaskEmployeeData} handleUpdateData={handleUpdateData}/>}/>
         
         
         

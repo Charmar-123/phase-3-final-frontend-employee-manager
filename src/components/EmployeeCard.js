@@ -1,6 +1,6 @@
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Button, Row, Col, Container } from 'react-bootstrap';
+import { Button, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 
@@ -8,12 +8,14 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handleUpdateData, 
 
 
     const handleTaskComplete = (taskId) => {
+        const patchDescription = tasks[tasks.findIndex(task => task.id === taskId)].description
+        console.log(patchDescription);
         fetch(`http://localhost:9292/tasks/${taskId}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ complete: true }),
+            body: JSON.stringify({complete: true, description: patchDescription}),
         })
             .then(res => res.json())
             .then(data => {
@@ -66,6 +68,7 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handleUpdateData, 
                                     </Col>
                                     <Col>
                                         <Button variant='success' className="ml-auto" style={{ width: '70px', fontSize: '10px', marginRight: '5px' }} onClick={() => handleTaskComplete(pendingTask.id)}>Finished</Button>
+                                        <Button  as={Link} to={`/employees/${id}/edit_task/${pendingTask.id}`} variant='warning' className="ml-auto" style={{ width: '70px', fontSize: '10px', marginRight: '5px' }} onClick={handleOnClick}>Edit Task</Button>
                                         <Button variant='danger' className="ml-auto" style={{ width: '70px', fontSize: '10px' }} onClick={() => handleTaskDelete(pendingTask)}>Delete</Button>
                                     </Col>
                                 </Col>
@@ -100,6 +103,7 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handleUpdateData, 
             <Card.Body>
                 {/* Create link to take to create new tasks form */}
                 <Button as={Link} to={`/employees/${id}/new_tasks`} onClick={handleOnClick}>Create Task</Button>
+            
 
 
             </Card.Body>
