@@ -82,8 +82,16 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handleUpdateData, 
                 {CompletedTasks.map((CompletedTask) => {
                     return (
                         <Row key={CompletedTask.id}>
-                            <ListGroup.Item key={CompletedTask.id}>{CompletedTask.description}</ListGroup.Item>
-                            <Button onClick={() => handleTaskDelete(CompletedTask)}>Delete</Button>
+                            <ListGroup.Item>
+                                <Col>
+                                    <Col>
+                                        <p>{CompletedTask.description}</p>
+                                    </Col>
+                                    <Col>
+                                        <Button variant='danger' className="ml-auto" style={{ width: '70px', fontSize: '10px' }} onClick={() => handleTaskDelete(CompletedTask)}>Delete</Button>
+                                    </Col>
+                                </Col>
+                            </ListGroup.Item>
                         </Row>
 
                     )

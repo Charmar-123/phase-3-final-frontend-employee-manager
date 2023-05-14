@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import { Card, ListGroup, Row, Form, Button } from 'react-bootstrap'
+import { Card, ListGroup, Row, Form, Button, Container } from 'react-bootstrap'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -9,7 +9,7 @@ const CreateNewTask = ({ newTaskEmployeeData, handlePostTaskData }) => {
 
     const navigate = useNavigate();
 
-    const { id, position, name, image_url,tasks} = newTaskEmployeeData
+    const { id, position, name, image_url, tasks } = newTaskEmployeeData
     const pendingTasks = tasks.filter(({ complete }) => complete === false);
     const CompletedTasks = tasks.filter(({ complete }) => complete === true);
 
@@ -33,7 +33,7 @@ const CreateNewTask = ({ newTaskEmployeeData, handlePostTaskData }) => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({id: id, newTasks: newTasks}),
+            body: JSON.stringify({ id: id, newTasks: newTasks }),
         })
             .then(res => res.json())
             .then(data => {
@@ -44,61 +44,70 @@ const CreateNewTask = ({ newTaskEmployeeData, handlePostTaskData }) => {
             })
     }
     return (
-        <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={image_url} />
-            <Card.Body>
-                <Card.Title>{name}</Card.Title>
-                <Card.Text>
-                    {position}
-                </Card.Text>
-            </Card.Body>
-            <Card.Header>Pending Tasks</Card.Header>
-            <ListGroup variant="flush">
-                {pendingTasks.map((pendingTask) => {
-                    return (
-                        <Row key={pendingTask.id}>
-                            <ListGroup.Item>{pendingTask.description}</ListGroup.Item>
-                        </Row>
+        <div className="d-flex justify-content-center" >
+            <Card className="mx-auto" style={{ width: '18rem' }}>
+                <Card.Img variant="top" src={image_url} />
+                <Card.Body>
+                    <Card.Title>{name}</Card.Title>
+                    <Card.Text>
+                        {position}
+                    </Card.Text>
+                </Card.Body>
+                <Card.Header>Pending Tasks</Card.Header>
+                <ListGroup variant="flush">
+                    {pendingTasks.map((pendingTask) => {
+                        return (
+                            <Container style={{ width: '18rem' }}>
+                                <Row key={pendingTask.id}>
+                                    <ListGroup.Item>{pendingTask.description}</ListGroup.Item>
+                                </Row>
+                            </Container>
 
-                    )
-                })}
-            </ListGroup>
-            <Card.Header>Completed Tasks</Card.Header>
-            <ListGroup variant="flush">
-                {CompletedTasks.map((CompletedTask) => {
-                    return (
-                        <Row key={CompletedTask.id}>
-                            <ListGroup.Item key={CompletedTask.id}>{CompletedTask.description}</ListGroup.Item>
-                        </Row>
 
-                    )
-                })}
-            </ListGroup>
-            <Card.Body>
-                <Form onSubmit={handleOnSubmit}>
-                    <Form.Group>
-                        <Form.Label>Tasks</Form.Label>
-                        {newTasks.map((task, index) => (
-                            <Form.Control
-                                key={index}
-                                type="text"
-                                placeholder={`Enter task ${index + 1}`}
-                                value={task}
-                                onChange={(event) => handleTaskChange(index, event.target.value)}
-                            />
-                        ))}
-                        <Button variant="secondary" onClick={handleAddTask}>
-                            Add Task
+                        )
+                    })}
+                </ListGroup>
+                <Card.Header>Completed Tasks</Card.Header>
+                <ListGroup variant="flush">
+                    {CompletedTasks.map((CompletedTask) => {
+                        return (
+                            <Container style={{ width: '18rem' }}>
+                                <Row key={CompletedTask.id}>
+                                    <ListGroup.Item key={CompletedTask.id}>{CompletedTask.description}</ListGroup.Item>
+                                </Row>
+                            </Container>
+
+
+                        )
+                    })}
+                </ListGroup>
+                <Card.Body>
+                    <Form onSubmit={handleOnSubmit}>
+                        <Form.Group>
+                            <Form.Label>Tasks</Form.Label>
+                            {newTasks.map((task, index) => (
+                                <Form.Control
+                                    key={index}
+                                    type="text"
+                                    placeholder={`Enter task ${index + 1}`}
+                                    value={task}
+                                    onChange={(event) => handleTaskChange(index, event.target.value)}
+                                />
+                            ))}
+                            <Button variant="secondary" onClick={handleAddTask}>
+                                Add Task
+                            </Button>
+                        </Form.Group>
+                        <Button variant="primary" type="submit">
+                            Submit
                         </Button>
-                    </Form.Group>
-                    <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
 
-                </Form>
+                    </Form>
 
-            </Card.Body>
-        </Card>
+                </Card.Body>
+            </Card>
+        </div>
+
 
     )
 }

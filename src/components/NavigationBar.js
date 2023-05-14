@@ -11,7 +11,7 @@ const NavigationBar = () => {
           <Navbar.Brand>
             Employee Manager
           </Navbar.Brand>
-          <Nav>
+          <Nav className="me-auto">
             <Nav.Link as={Link} to={'/employees'}>Employees</Nav.Link>
             <Nav.Link as={Link} to={'/employees/new'}>Create New Employee</Nav.Link>
           </Nav>
