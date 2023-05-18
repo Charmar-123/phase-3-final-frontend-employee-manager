@@ -30,9 +30,9 @@ const App = () => {
   // update state with the new tasks from CreateNewTask
   const handlePostTaskData = (newTasks) => {
 
-    const employeeIndex = employeesData.findIndex(obj => obj.id === newTasks[0].employee_id)
+    const employeeSelected = employeesData.find(obj => obj.id === newTasks[0].employee_id)
 
-    const updatedEmployee = { ...employeesData[employeeIndex], tasks: [...employeesData[employeeIndex].tasks, ...newTasks] }
+    const updatedEmployee = { ...employeeSelected, tasks: [...employeeSelected.tasks, ...newTasks] }
     const updatedEmployeesData = employeesData.map((employee) => {
       if (employee.id === newTasks[0].employee_id) {
         return updatedEmployee
@@ -41,22 +41,21 @@ const App = () => {
         return employee
       }
     })
-    console.log(updatedEmployee)
+
 
     setEmployeesData(updatedEmployeesData)
   }
 
 // update state with new task status, changed to complete
   const handleUpdateData = (task) => {
-    const employeeIndex = employeesData.findIndex(obj => obj.id === task.employee_id)
-    const updatedEmployee = employeesData[employeeIndex];
+    const employeeSelected = employeesData.find(obj => obj.id === task.employee_id)
     const taskId = task.id;
-    const taskIndex = updatedEmployee.tasks.findIndex(obj => obj.id === taskId)
-    updatedEmployee.tasks[taskIndex] = task
+    const taskIndex = employeeSelected.tasks.findIndex(obj => obj.id === taskId)
+    employeeSelected.tasks[taskIndex] = task
 
     const updatedEmployeesData = employeesData.map((employee) => {
       if (employee.id === task.employee_id) {
-        return updatedEmployee
+        return employeeSelected
       }
       else {
         return employee
@@ -69,14 +68,12 @@ const App = () => {
 
   // update state with the task deleted
   const handleDeleteData = (task) => {
-    console.log(task);
-    const employeeIndex = employeesData.findIndex(obj => obj.id === task.employee_id)
-    const updatedEmployee = employeesData[employeeIndex];
-    updatedEmployee.tasks = updatedEmployee.tasks.filter(t => t.id !== task.id)
+    const employeeSelected = employeesData.find(obj => obj.id === task.employee_id)
+    employeeSelected.tasks = employeeSelected.tasks.filter(t => t.id !== task.id)
 
     const updatedEmployeesData = employeesData.map((employee) => {
       if (employee.id === task.employee_id) {
-        return updatedEmployee
+        return employeeSelected
       }
       else {
         return employee

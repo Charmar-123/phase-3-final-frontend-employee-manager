@@ -9,7 +9,7 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handleUpdateData, 
 
     const handleTaskComplete = (taskId) => {
         const patchDescription = tasks[tasks.findIndex(task => task.id === taskId)].description
-        console.log(patchDescription);
+
         fetch(`http://localhost:9292/tasks/${taskId}`, {
             method: "PATCH",
             headers: {
@@ -31,7 +31,6 @@ const EmployeeCard = ({ id, name, image_url, position, tasks, handleUpdateData, 
 
 
     const handleTaskDelete = (task) => {
-        console.log(task.id);
 
         fetch(`http://localhost:9292/tasks/${task.id}`, {
             method: 'DELETE',

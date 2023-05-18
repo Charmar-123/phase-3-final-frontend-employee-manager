@@ -14,9 +14,10 @@ const EditEmployeeTask = ({ newTaskEmployeeData, handleUpdateData }) => {
 
 
     // find task index from id
-    const taskIndex = tasks.findIndex(t => t.id === parseInt(task_id));
-    const taskToEditDescription = tasks[taskIndex].description;
-    const taskToEditComplete = tasks[taskIndex].complete;
+
+    const taskToEdit = tasks.find(t => t.id === parseInt(task_id))
+    const taskToEditDescription = taskToEdit.description;
+    const taskToEditComplete = taskToEdit.complete;
 
 
     const [editedTask, setEditedTask] = useState("");
